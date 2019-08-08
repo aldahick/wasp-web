@@ -31,7 +31,7 @@ export const Navbar = withRouter(withStyles(styles)(class extends React.Componen
     }
     return {
       "Log in": "/login",
-      "Register": "/register"
+      // "Register": "/register"
     };
   }
 

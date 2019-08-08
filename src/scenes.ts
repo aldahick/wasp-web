@@ -1,11 +1,13 @@
 import { IndexScene } from "./scene";
 import { LoginScene } from "./scene/login";
+import { MediaScene } from "./scene/media";
+import { LogoutScene } from "./scene/logout";
 
-type SceneDefinition = {
+interface SceneDefinition {
   component: React.ComponentType<any>;
   route: string;
   isPrivate: boolean;
-};
+}
 
 const scenes: SceneDefinition[] = [
   {
@@ -17,6 +19,16 @@ const scenes: SceneDefinition[] = [
     component: LoginScene,
     route: "/login",
     isPrivate: false
+  },
+  {
+    component: LogoutScene,
+    route: "/logout",
+    isPrivate: false
+  },
+  {
+    component: MediaScene,
+    route: "/media",
+    isPrivate: true
   }
 ];
 

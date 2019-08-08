@@ -16,6 +16,12 @@ export enum CacheControlScope {
   Private = "PRIVATE"
 }
 
+export type MediaItem = {
+  __typename?: "MediaItem";
+  key: Scalars["String"];
+  isFile: Scalars["Boolean"];
+};
+
 export type Mutation = {
   __typename?: "Mutation";
   createSystemToken: Scalars["String"];
@@ -65,7 +71,7 @@ export enum Permission {
 export type Query = {
   __typename?: "Query";
   hello: Scalars["String"];
-  listMedia: Array<Maybe<Scalars["String"]>>;
+  listMedia: Array<Maybe<MediaItem>>;
   roles: Array<Maybe<Role>>;
   user?: Maybe<User>;
 };

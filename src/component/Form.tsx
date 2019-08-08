@@ -3,13 +3,13 @@ import { InputProps } from "@material-ui/core/Input";
 import _ from "lodash";
 import React, { Fragment } from "react";
 
-type FieldDefinition = {
+interface FieldDefinition {
   defaultValue?: string;
   /** default: false */
   isRequired?: boolean;
   placeholder?: string;
   type?: string;
-};
+}
 
 interface FormProps<Fields extends {[key: string]: string}> {
   errorMessage?: string;

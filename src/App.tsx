@@ -10,6 +10,7 @@ import { PrivateRoute, UserState } from "./component/auth";
 import { Layout } from "./component/Layout";
 import { Config } from "./Config";
 import scenes from "./scenes";
+import { createHttpLink } from "apollo-link-http";
 
 const theme = createMuiTheme({
   typography: {
@@ -26,6 +27,8 @@ const client = new ApolloClient({
       ...headers,
       authorization: UserState.token ? `Bearer ${UserState.token}` : ""
     }
+  })).concat(createHttpLink({
+    uri: Config.apiUrl + "/graphql"
   })),
   cache: new InMemoryCache(),
   defaultOptions: {

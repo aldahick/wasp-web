@@ -8,10 +8,10 @@ import { UserState } from "../component/auth";
 import { Form } from "../component/Form";
 import { CREATE_USER_TOKEN, CreateUserTokenMutation } from "../graphql/createUserToken";
 
-type LoginSceneState = {
+interface LoginSceneState {
   shouldRedirect: boolean;
   errorMessage?: string;
-};
+}
 
 const styles = createStyles({
   errorMessage: {
@@ -42,11 +42,12 @@ export const LoginScene = withStyles(styles)(class extends React.Component<WithS
     });
     if (!res) return;
     if (res.errors) {
-      const statusCodes: number[] = res.errors.map(e => (e.message as any).statusCode);
-      if (statusCodes.includes(404) || statusCodes.includes(403)) {
-        this.setState({ errorMessage: "Invalid username or password." });
+      const messages: string[] = res.errors.map(e => e.message);
+      if (messages.includes("invalid email or password")) {
+        this.setState({ errorMessage: "Invalid email or password." });
       } else {
-        throw new Error(res.errors.map(e => e.message).join("\n"));
+        console.error(res.errors);
+        this.setState({ errorMessage: "Server-side error occurred:\n" + messages.join("\n") });
       }
     } else if (res.data) {
       UserState.setToken(res.data.token);
@@ -67,8 +68,8 @@ export const LoginScene = withStyles(styles)(class extends React.Component<WithS
               <Form
                 errorMessage={this.state.errorMessage}
                 fields={{
-                  username: {
-                    placeholder: "Username"
+                  email: {
+                    placeholder: "Email"
                   },
                   password: {
                     placeholder: "Password",
