@@ -7,7 +7,9 @@ import { Config } from "../../Config";
 import { UserState } from "../auth";
 
 const styles = createStyles({
-
+  textContent: {
+    whiteSpace: "pre-wrap"
+  }
 });
 
 type ContentViewProps = {
@@ -24,25 +26,25 @@ const TEXT_MIME_TYPES = ["text/html", "text/plain"];
 export const ContentView = withStyles(styles)(class extends React.Component<ContentViewProps, ContentViewState> {
   readonly state: ContentViewState = {};
 
-  get contentUrl() {
-    return Config.apiUrl + "/media/content?token=" + encodeURIComponent(UserState.token || "") + "&key=" + encodeURIComponent(this.props.targetKey);
+  contentUrl(key: string) {
+    return Config.apiUrl + "/media/content?token=" + encodeURIComponent(UserState.token || "") + "&key=" + encodeURIComponent(key);
   }
 
-  get mimeType() {
-    return mime.getType(this.props.targetKey) || "text/plain";
+  mimeType(key: string) {
+    return mime.getType(key) || "text/plain";
   }
 
-  get isText() {
-    return TEXT_MIME_TYPES.includes(this.mimeType);
+  isText(key: string) {
+    return TEXT_MIME_TYPES.includes(this.mimeType(key));
   }
 
-  async componentDidMount() {
+  async componentWillReceiveProps({ targetKey }: ContentViewProps) {
     if (!this.isText) {
       return;
     }
     try {
       this.setState({
-        data: await axios.get(this.contentUrl).then(r => r.data),
+        data: await axios.get(this.contentUrl(targetKey)).then(r => r.data),
         errorMessage: undefined
       });
     } catch (err) {
@@ -51,27 +53,33 @@ export const ContentView = withStyles(styles)(class extends React.Component<Cont
     }
   }
 
+  async componentDidMount() {
+    return this.componentWillReceiveProps(this.props);
+  }
+
   render() {
+    const { classes, targetKey } = this.props;
     if (this.state.errorMessage) {
       return <Typography color="error">{this.state.errorMessage}</Typography>;
     }
-    switch (this.mimeType) {
+    switch (this.mimeType(targetKey)) {
       case "video/quicktime":
       case "video/mp4":
         const videoProps: Partial<VideoHTMLAttributes<HTMLVideoElement>> = { playsInline: true };
         if (isIOS) {
           videoProps.muted = true;
         }
-        return <video style={{ width: "100%" }} controls autoPlay src={this.contentUrl} {...videoProps} />;
+        return <video style={{ width: "100%" }} controls autoPlay src={this.contentUrl(targetKey)} {...videoProps} />;
+      case "audio/mp4":
       case "audio/mp3":
       case "audio/mpeg":
-        return <audio controls autoPlay src={this.contentUrl} />;
+        return <audio controls autoPlay src={this.contentUrl(targetKey)} />;
       case "image/png":
-        return <img src={this.contentUrl} />;
+        return <img alt={this.props.targetKey} src={this.contentUrl(targetKey)} />;
       case "text/html":
         return <div dangerouslySetInnerHTML={{ __html: this.state.data || "No HTML" }} />;
       case "text/plain":
-        return <pre>{this.state.data}</pre>;
+        return <div className={classes.textContent}>{this.state.data}</div>;
     }
     if (this.isText) {
       if (!this.state.data) {
