@@ -88,7 +88,8 @@ export type QueryStoryArgs = {
 };
 
 export type QueryStoriesArgs = {
-  categoryId: Scalars["Int"];
+  categoryId?: Maybe<Scalars["Int"]>;
+  favorites?: Maybe<Scalars["Boolean"]>;
   page?: Maybe<Scalars["Int"]>;
 };
 
@@ -112,6 +113,7 @@ export type StoriesResult = {
 export type Story = {
   __typename?: "Story";
   _id: Scalars["Int"];
+  categoryId: Scalars["Int"];
   title: Scalars["String"];
   description: Scalars["String"];
   body: Scalars["String"];

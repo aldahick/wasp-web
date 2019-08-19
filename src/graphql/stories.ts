@@ -16,11 +16,12 @@ export interface StoryBodyResult {
 }
 
 export const STORIES = gql`
-query WebStories($categoryId: Int!, $page: Int!) {
-  stories(categoryId: $categoryId, page: $page) {
+query WebStories($categoryId: Int, $favorites: Boolean, $page: Int!) {
+  stories(categoryId: $categoryId, favorites: $favorites, page: $page) {
     pageCount
     stories {
       _id
+      categoryId
       title
       description
     }
@@ -28,7 +29,8 @@ query WebStories($categoryId: Int!, $page: Int!) {
 }
 `;
 export interface StoriesParams {
-  categoryId: number;
+  categoryId?: number;
+  favorites?: boolean;
   page: number;
 }
 export interface StoriesResult {

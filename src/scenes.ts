@@ -6,6 +6,7 @@ import { StoryCategoriesScene } from "./scene/storyCategories";
 import { StoryCategoryScene } from "./scene/storyCategory";
 import { StoryScene } from "./scene/story";
 import { RouteComponentProps } from "react-router";
+import { StoryFavoritesScene } from "./scene/storyFavorites";
 
 interface SceneDefinition {
   component: React.ComponentType<any>;
@@ -38,6 +39,11 @@ const scenes: SceneDefinition[] = [
   {
     component: StoryCategoriesScene,
     route: "/storyCategories",
+    isPrivate: true
+  },
+  {
+    component: StoryFavoritesScene,
+    route: "/storyFavorites",
     isPrivate: true
   },
   {
