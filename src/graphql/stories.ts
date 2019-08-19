@@ -1,6 +1,20 @@
 import gql from "graphql-tag";
 import { Query } from "./types";
 
+export const STORY_BODY = gql`
+query WebStoryBody($storyId: Int!) {
+  story(id: $storyId) {
+    body
+  }
+}
+`;
+export interface StoryBodyParams {
+  storyId: number;
+}
+export interface StoryBodyResult {
+  story: Query["story"];
+}
+
 export const STORIES = gql`
 query WebStories($categoryId: Int!, $page: Int!) {
   stories(categoryId: $categoryId, page: $page) {
@@ -13,12 +27,10 @@ query WebStories($categoryId: Int!, $page: Int!) {
   }
 }
 `;
-
 export interface StoriesParams {
   categoryId: number;
   page: number;
 }
-
 export interface StoriesResult {
   stories: Query["stories"];
 }
@@ -29,6 +41,7 @@ query WebStoryCategories {
     _id
     name
     description
+    type
   }
 }
 `;

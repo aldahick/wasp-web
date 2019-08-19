@@ -4,11 +4,14 @@ import { MediaScene } from "./scene/media";
 import { LogoutScene } from "./scene/logout";
 import { StoryCategoriesScene } from "./scene/storyCategories";
 import { StoryCategoryScene } from "./scene/storyCategory";
+import { StoryScene } from "./scene/story";
+import { RouteComponentProps } from "react-router";
 
 interface SceneDefinition {
   component: React.ComponentType<any>;
   route: string;
   isPrivate: boolean;
+  navbarLinks?(props: RouteComponentProps): {[key: string]: string};
 }
 
 const scenes: SceneDefinition[] = [
@@ -40,7 +43,22 @@ const scenes: SceneDefinition[] = [
   {
     component: StoryCategoryScene,
     route: "/storyCategory/:categoryId",
-    isPrivate: true
+    isPrivate: true,
+    navbarLinks(props: RouteComponentProps) {
+      return {
+        "Categories": "/storyCategories"
+      };
+    }
+  },
+  {
+    component: StoryScene,
+    route: "/story/:categoryId/:storyId",
+    isPrivate: true,
+    navbarLinks(props: RouteComponentProps<{ categoryId: string }>) {
+      return {
+        "Category": `/storyCategory/${props.location.pathname.split("/")[2]}`
+      };
+    }
   }
 ];
 
