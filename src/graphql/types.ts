@@ -73,11 +73,23 @@ export type Query = {
   hello: Scalars["String"];
   listMedia: Array<Maybe<MediaItem>>;
   roles: Array<Maybe<Role>>;
+  story: Story;
+  stories: StoriesResult;
+  storyCategories: Array<StoryCategory>;
   user?: Maybe<User>;
 };
 
 export type QueryListMediaArgs = {
   dir: Scalars["String"];
+};
+
+export type QueryStoryArgs = {
+  id: Scalars["Int"];
+};
+
+export type QueryStoriesArgs = {
+  categoryId: Scalars["Int"];
+  page?: Maybe<Scalars["Int"]>;
 };
 
 export type QueryUserArgs = {
@@ -90,6 +102,35 @@ export type Role = {
   name: Scalars["String"];
   permissions: Array<Maybe<Permission>>;
 };
+
+export type StoriesResult = {
+  __typename?: "StoriesResult";
+  pageCount: Scalars["Int"];
+  stories: Array<Story>;
+};
+
+export type Story = {
+  __typename?: "Story";
+  _id: Scalars["Int"];
+  title: Scalars["String"];
+  description: Scalars["String"];
+  body: Scalars["String"];
+};
+
+export type StoryCategory = {
+  __typename?: "StoryCategory";
+  _id: Scalars["Int"];
+  name: Scalars["String"];
+  description: Scalars["String"];
+  code: Scalars["String"];
+  type: StoryCategoryType;
+};
+
+export enum StoryCategoryType {
+  Story = "story",
+  Illustra = "illustra",
+  Poem = "poem"
+}
 
 export type User = {
   __typename?: "User";

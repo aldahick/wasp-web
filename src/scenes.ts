@@ -2,6 +2,8 @@ import { IndexScene } from "./scene";
 import { LoginScene } from "./scene/login";
 import { MediaScene } from "./scene/media";
 import { LogoutScene } from "./scene/logout";
+import { StoryCategoriesScene } from "./scene/storyCategories";
+import { StoryCategoryScene } from "./scene/storyCategory";
 
 interface SceneDefinition {
   component: React.ComponentType<any>;
@@ -28,6 +30,16 @@ const scenes: SceneDefinition[] = [
   {
     component: MediaScene,
     route: "/media",
+    isPrivate: true
+  },
+  {
+    component: StoryCategoriesScene,
+    route: "/storyCategories",
+    isPrivate: true
+  },
+  {
+    component: StoryCategoryScene,
+    route: "/storyCategory/:categoryId",
     isPrivate: true
   }
 ];

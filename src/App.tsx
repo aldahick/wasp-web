@@ -13,6 +13,9 @@ import scenes from "./scenes";
 import { createHttpLink } from "apollo-link-http";
 
 const theme = createMuiTheme({
+  // palette: {
+  //   type: "dark"
+  // },
   typography: {
     fontFamily: "Open Sans",
     caption: {

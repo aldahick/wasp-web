@@ -16,7 +16,7 @@ const NAVBAR_LINKS = {
   },
   authRequired: {
     "Media": "/media",
-    "Settings": "/settings"
+    "Categories": "/storyCategories"
   }
 };
 
