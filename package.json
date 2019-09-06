@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@material-ui/core": "4.3.1",
+    "@material-ui/icons": "4.2.1",
     "@types/jest": "24.0.17",
     "apollo-cache-inmemory": "1.6.2",
     "apollo-client": "2.6.3",
@@ -44,6 +45,7 @@
     "@typescript-eslint/eslint-plugin": "1.13.0",
     "@typescript-eslint/parser": "1.13.0",
     "eslint": "5.16.0",
+    "eslint-plugin-import": "2.18.2",
     "react-scripts": "3.0.1",
     "typescript": "3.5.3"
   },

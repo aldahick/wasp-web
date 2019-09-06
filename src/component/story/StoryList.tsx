@@ -1,21 +1,21 @@
 import { Typography, Grid, Divider } from "@material-ui/core";
 import React, { ReactNode } from "react";
 import { Query } from "react-apollo";
-import { STORIES, StoriesResult, StoriesParams } from "../../graphql/stories";
+import { DocumentNode } from "graphql";
 import { StoryListLink } from "../../component/story/StoryListLink";
-import { RouteComponentProps } from "react-router";
 import { PagedView } from "../../component/story/PagedView";
-import { Story } from "../../graphql/types";
+import { Story, StoriesResult } from "../../graphql/types";
 
-interface StoryCategoryProps {
-  args: Omit<StoriesParams, "page">;
+interface StoryCategoryProps<Params> {
+  args: Omit<Params, "page">;
+  query: DocumentNode;
 }
 
 interface StoryCategoryState {
   page: number;
 }
 
-export class StoryList extends React.Component<StoryCategoryProps, StoryCategoryState> {
+export class StoryList<Params extends {}> extends React.Component<StoryCategoryProps<Params>, StoryCategoryState> {
   readonly state: StoryCategoryState = {
     page: 0
   };
@@ -24,10 +24,11 @@ export class StoryList extends React.Component<StoryCategoryProps, StoryCategory
     <Grid container direction="column">
       {stories.map(story => (
         <Grid item key={story._id}>
-          <StoryListLink to={`/story/${story.categoryId}/${story._id}`}>
-            <Typography variant="h6">{story.title}</Typography>
-            <Typography variant="body2">{story.description}</Typography>
-          </StoryListLink>
+          <StoryListLink
+            to={`/story/${story._id}`}
+            title={story.title}
+            description={story.description}
+          />
           <Divider variant="middle" />
         </Grid>
       ))}
@@ -37,7 +38,7 @@ export class StoryList extends React.Component<StoryCategoryProps, StoryCategory
   render() {
     const { page } = this.state;
     return (
-      <Query<StoriesResult, StoriesParams> query={STORIES} variables={{ page: page + 1, ...this.props.args }}>
+      <Query<{ stories: StoriesResult }> query={this.props.query} variables={{ page: page + 1, ...this.props.args }}>
         {({ loading, data, error }) => {
           if (loading) return <Typography>Loading...</Typography>;
           if (error || !data) {

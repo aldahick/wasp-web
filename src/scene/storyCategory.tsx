@@ -1,6 +1,7 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
 import { StoryList } from "../component/story/StoryList";
+import { STORIES_BY_CATEGORY } from "../graphql/stories";
 
 type StoryCategoryProps = RouteComponentProps<{
   categoryId: string;
@@ -12,6 +13,7 @@ export class StoryCategoryScene extends React.Component<StoryCategoryProps> {
   }
 
   render() {
-    return <StoryList args={{ categoryId: this.categoryId }} />;
+    sessionStorage.setItem("lastStoryCategoryId", this.categoryId.toString());
+    return <StoryList query={STORIES_BY_CATEGORY} args={{ categoryId: this.categoryId }} />;
   }
 }

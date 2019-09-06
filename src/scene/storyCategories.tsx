@@ -1,8 +1,8 @@
 import * as _ from "lodash";
 import React, { ReactNode } from "react";
 import { Query } from "react-apollo";
-import { STORY_CATEGORIES, StoryCategoriesResult } from "../graphql/stories";
 import { Typography, Grid, Divider } from "@material-ui/core";
+import { STORY_CATEGORIES, StoryCategoriesResult } from "../graphql/stories";
 import { StoryListLink } from "../component/story/StoryListLink";
 import { PagedView } from "../component/story/PagedView";
 import { StoryCategory, StoryCategoryType } from "../graphql/types";
@@ -11,10 +11,11 @@ export class StoryCategoriesScene extends React.Component<{}> {
   private renderPage(categories: StoryCategory[]): ReactNode {
     return categories.map(category => (
       <Grid item key={category._id}>
-        <StoryListLink to={`/storyCategory/${category._id}`}>
-          <Typography variant="h6">{category.name}</Typography>
-          <Typography variant="body2">{category.description}</Typography>
-        </StoryListLink>
+        <StoryListLink
+          title={category.name}
+          description={category.description}
+          to={`/storyCategory/${category._id}`}
+        />
         <Divider variant="middle" />
       </Grid>
     ));

@@ -74,7 +74,9 @@ export type Query = {
   listMedia: Array<Maybe<MediaItem>>;
   roles: Array<Maybe<Role>>;
   story: Story;
-  stories: StoriesResult;
+  storiesByCategory: StoriesResult;
+  favoriteStories: StoriesResult;
+  randomStories: StoriesResult;
   storyCategories: Array<StoryCategory>;
   user?: Maybe<User>;
 };
@@ -87,9 +89,16 @@ export type QueryStoryArgs = {
   id: Scalars["Int"];
 };
 
-export type QueryStoriesArgs = {
-  categoryId?: Maybe<Scalars["Int"]>;
-  favorites?: Maybe<Scalars["Boolean"]>;
+export type QueryStoriesByCategoryArgs = {
+  categoryId: Scalars["Int"];
+  page?: Maybe<Scalars["Int"]>;
+};
+
+export type QueryFavoriteStoriesArgs = {
+  page?: Maybe<Scalars["Int"]>;
+};
+
+export type QueryRandomStoriesArgs = {
   page?: Maybe<Scalars["Int"]>;
 };
 
@@ -117,6 +126,7 @@ export type Story = {
   title: Scalars["String"];
   description: Scalars["String"];
   body: Scalars["String"];
+  isFavorite?: Maybe<Scalars["Boolean"]>;
 };
 
 export type StoryCategory = {
