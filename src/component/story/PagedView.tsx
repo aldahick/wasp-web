@@ -1,6 +1,6 @@
+import { Button, Grid } from "@material-ui/core";
 import * as _ from "lodash";
 import React, { ReactNode } from "react";
-import { Grid, Button } from "@material-ui/core";
 
 interface PagedViewProps<PageData> {
   pages: PageData[] | {

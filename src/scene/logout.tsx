@@ -17,7 +17,7 @@ export class LogoutScene extends React.Component<{}, LogoutSceneState> {
   }
 
   render() {
-    if (!this.state.isLoggedOut) return null;
+    if (!this.state.isLoggedOut) { return null; }
     return <Redirect to="/" />;
   }
 }

@@ -1,14 +1,14 @@
-import * as _ from "lodash";
-import React, { ReactNode, Fragment } from "react";
-import { Query, Mutation } from "react-apollo";
-import { Typography, IconButton, Grid } from "@material-ui/core";
+import { Grid, IconButton, Typography } from "@material-ui/core";
 import BackIcon from "@material-ui/icons/ArrowBack";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
+import * as _ from "lodash";
+import React, { Fragment, ReactNode } from "react";
+import { Mutation, Query } from "react-apollo";
 import { RouteComponentProps } from "react-router";
-import { StoryBodyResult, STORY_BODY, StoryBodyParams, ToggleStoryFavoriteParams, TOGGLE_STORY_FAVORITE } from "../graphql/stories";
-import { Story } from "../graphql/types";
 import { PagedView } from "../component/story/PagedView";
+import { STORY_BODY, StoryBodyParams, StoryBodyResult, TOGGLE_STORY_FAVORITE, ToggleStoryFavoriteParams } from "../graphql/stories";
+import { Story } from "../graphql/types";
 
 type StoryProps = {
   story: Story;
@@ -28,7 +28,7 @@ export class StoryScene extends React.Component<StoryProps> {
     return (
       <Query<StoryBodyResult, StoryBodyParams> query={STORY_BODY} variables={{ storyId: Number(this.props.match.params.storyId) }}>
         {({ loading, data, error }) => {
-          if (loading) return null;
+          if (loading) { return null; }
           if (error || !data) {
             return (
               <Typography color="error">

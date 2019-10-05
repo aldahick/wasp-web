@@ -18,7 +18,7 @@ const styles = createStyles({
     color: "red"
   },
   registerContainer: {
-    paddingTop: "1em",
+    "paddingTop": "1em",
     "& a": {
       textDecoration: "none"
     }
@@ -40,7 +40,7 @@ export const LoginScene = withStyles(styles)(class extends React.Component<WithS
         password: fields.password
       }
     });
-    if (!res) return;
+    if (!res) { return; }
     if (res.errors) {
       const messages: string[] = res.errors.map(e => e.message);
       if (messages.includes("invalid email or password")) {
@@ -53,7 +53,7 @@ export const LoginScene = withStyles(styles)(class extends React.Component<WithS
       UserState.setToken(res.data.token);
       this.setState({ shouldRedirect: true });
     }
-  };
+  }
 
   render() {
     if (UserState.isAuthenticated || this.state.shouldRedirect) {

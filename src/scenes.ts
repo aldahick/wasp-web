@@ -1,11 +1,11 @@
 import { RouteComponentProps } from "react-router";
 import { IndexScene } from "./scene";
 import { LoginScene } from "./scene/login";
-import { MediaScene } from "./scene/media";
 import { LogoutScene } from "./scene/logout";
+import { MediaScene } from "./scene/media";
+import { StoryScene } from "./scene/story";
 import { StoryCategoriesScene } from "./scene/storyCategories";
 import { StoryCategoryScene } from "./scene/storyCategory";
-import { StoryScene } from "./scene/story";
 import { StoryFavoritesScene } from "./scene/storyFavorites";
 
 interface SceneDefinition {

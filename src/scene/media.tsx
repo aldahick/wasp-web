@@ -21,7 +21,7 @@ export class MediaScene extends React.Component<{}, MediaSceneState> {
         [key]: !this.state.isExpanded[key]
       }
     });
-  };
+  }
 
   render() {
     return (

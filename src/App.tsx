@@ -2,6 +2,7 @@ import { createMuiTheme, MuiThemeProvider } from "@material-ui/core";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
 import { setContext } from "apollo-link-context";
+import { createHttpLink } from "apollo-link-http";
 import * as React from "react";
 import { ApolloProvider } from "react-apollo";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
@@ -10,7 +11,6 @@ import { PrivateRoute, UserState } from "./component/auth";
 import { Layout } from "./component/Layout";
 import { Config } from "./Config";
 import scenes from "./scenes";
-import { createHttpLink } from "apollo-link-http";
 
 const theme = createMuiTheme({
   typography: {

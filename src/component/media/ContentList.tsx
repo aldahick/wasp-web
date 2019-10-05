@@ -1,8 +1,8 @@
+import { Button, Grid, MenuItem, Select, Typography } from "@material-ui/core";
 import React from "react";
 import { Query } from "react-apollo";
-import { ListMediaResult, LIST_MEDIA } from "../../graphql/listMedia";
+import { LIST_MEDIA, ListMediaResult } from "../../graphql/listMedia";
 import { QueryListMediaArgs } from "../../graphql/types";
-import { Grid, Typography, Select, MenuItem, Button } from "@material-ui/core";
 import { ContentView } from "./ContentView";
 
 interface ContentListProps {
@@ -12,7 +12,7 @@ interface ContentListProps {
 interface ContentListState {
   isFileSelected: boolean;
   rows: {
-    selected: string | undefined;
+    selected?: string;
     options: {
       key: string;
       isFile: boolean;
@@ -34,13 +34,13 @@ export class ContentList extends React.Component<ContentListProps, ContentListSt
   onListSubmit = (index: number) => () => {
     this.state.rows.splice(index + 1, this.state.rows.length + 1 - index);
     this.setState({ rows: this.state.rows });
-  };
+  }
 
   onSelectChange = (index: number) => (evt: React.ChangeEvent<{ name?: string; value: unknown }>, child: any) => {
     const { rows } = this.state;
     rows[index].selected = evt.target.value as string;
     this.setState({ rows: rows.splice(0, index + 1), isFileSelected: child.props["data-isfile"] });
-  };
+  }
 
   render() {
     const { isFileSelected } = this.state;
@@ -55,7 +55,7 @@ export class ContentList extends React.Component<ContentListProps, ContentListSt
     return (
       <Query<ListMediaResult, QueryListMediaArgs> query={LIST_MEDIA} variables={{ dir: this.selectedKey }}>
         {({ data, loading, error }) => {
-          if (loading) return null;
+          if (loading) { return null; }
           if (error || !data) {
             return (
               <Typography color="error">

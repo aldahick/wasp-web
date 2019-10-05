@@ -1,10 +1,10 @@
-import { Typography, Grid, Divider } from "@material-ui/core";
+import { Divider, Grid, Typography } from "@material-ui/core";
+import { DocumentNode } from "graphql";
 import React, { ReactNode } from "react";
 import { Query } from "react-apollo";
-import { DocumentNode } from "graphql";
-import { StoryListLink } from "../../component/story/StoryListLink";
 import { PagedView } from "../../component/story/PagedView";
-import { Story, StoriesResult } from "../../graphql/types";
+import { StoryListLink } from "../../component/story/StoryListLink";
+import { StoriesResult, Story } from "../../graphql/types";
 
 interface StoryCategoryProps<Params> {
   args: Omit<Params, "page">;
@@ -33,14 +33,14 @@ export class StoryList<Params extends {}> extends React.Component<StoryCategoryP
         </Grid>
       ))}
     </Grid>
-  );
+  )
 
   render() {
     const { page } = this.state;
     return (
       <Query<{ stories: StoriesResult }> query={this.props.query} variables={{ page: page + 1, ...this.props.args }}>
         {({ loading, data, error }) => {
-          if (loading) return <Typography>Loading...</Typography>;
+          if (loading) { return <Typography>Loading...</Typography>; }
           if (error || !data) {
             return (
               <Typography color="error">
@@ -55,7 +55,7 @@ export class StoryList<Params extends {}> extends React.Component<StoryCategoryP
                 count: pageCount,
                 current: stories,
                 currentIndex: this.state.page,
-                onPageChange: page => this.setState({ page })
+                onPageChange: newPage => this.setState({ page: newPage })
               }}
               renderPage={this.renderPage}
             />

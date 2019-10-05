@@ -15,9 +15,9 @@ const NAVBAR_LINKS = {
     "Hello!": "/"
   },
   authRequired: {
-    "Media": "/media",
-    "Categories": "/storyCategories",
-    "Favorites": "/storyFavorites"
+    Media: "/media",
+    Categories: "/storyCategories",
+    Favorites: "/storyFavorites"
   }
 };
 
@@ -58,4 +58,4 @@ export const Navbar = withRouter(withStyles(styles)(class extends React.Componen
       </AppBar>
     );
   }
-}));
+}) as any);

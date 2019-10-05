@@ -1,8 +1,8 @@
 import { createStyles, Typography, withStyles, WithStyles } from "@material-ui/core";
 import axios from "axios";
 import * as mime from "mime";
-import { isIOS } from "react-device-detect";
 import React, { VideoHTMLAttributes } from "react";
+import { isIOS } from "react-device-detect";
 import { Config } from "../../Config";
 import { UserState } from "../auth";
 
