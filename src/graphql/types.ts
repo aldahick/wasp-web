@@ -11,6 +11,18 @@ export type Scalars = {
   DateTime: Date;
 };
 
+export type AuthToken = {
+  __typename?: "AuthToken";
+  token: Scalars["String"];
+  type?: Maybe<AuthTokenType>;
+  user: User;
+};
+
+export enum AuthTokenType {
+  System = "system",
+  User = "user"
+}
+
 export enum CacheControlScope {
   Public = "PUBLIC",
   Private = "PRIVATE"
@@ -24,10 +36,11 @@ export type MediaItem = {
 
 export type Mutation = {
   __typename?: "Mutation";
-  createSystemToken: Scalars["String"];
-  createUserToken: Scalars["String"];
+  createSystemToken: AuthToken;
+  createUserToken: AuthToken;
   addPermissionsToRole: Scalars["Boolean"];
   createRole: Role;
+  toggleStoryFavorite: Scalars["Boolean"];
   addRoleToUser: Scalars["Boolean"];
   createUser: User;
   updateUserProfile: User;
@@ -48,6 +61,10 @@ export type MutationCreateRoleArgs = {
   name: Scalars["String"];
 };
 
+export type MutationToggleStoryFavoriteArgs = {
+  id: Scalars["Int"];
+};
+
 export type MutationAddRoleToUserArgs = {
   userId?: Maybe<Scalars["String"]>;
   roleId: Scalars["String"];
@@ -64,8 +81,10 @@ export type MutationUpdateUserProfileArgs = {
 };
 
 export enum Permission {
+  Media = "media",
   ManageRoles = "manageRoles",
-  ManageUsers = "manageUsers"
+  ManageUsers = "manageUsers",
+  Stories = "stories"
 }
 
 export type Query = {
@@ -147,6 +166,7 @@ export enum StoryCategoryType {
 export type User = {
   __typename?: "User";
   _id: Scalars["String"];
+  permissions: Array<Permission>;
   profile: UserProfile;
   roles: Array<Maybe<Role>>;
 };

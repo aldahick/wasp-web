@@ -6,7 +6,8 @@ import { Redirect, RouteComponentProps } from "react-router";
 import { Link } from "react-router-dom";
 import { UserState } from "../component/auth";
 import { Form } from "../component/Form";
-import { CREATE_USER_TOKEN, CreateUserTokenMutation } from "../graphql/createUserToken";
+import { CREATE_USER_TOKEN, CreateUserTokenMutation } from "../graphql/auth";
+import { AuthToken } from "../graphql/types";
 
 interface LoginSceneState {
   shouldRedirect: boolean;
@@ -34,25 +35,36 @@ export const LoginScene = withStyles(styles)(class extends React.Component<WithS
   submit = (createUserToken: CreateUserTokenMutation) => async (fields: {
     [key in "email" | "password"]: string;
   }) => {
+    try {
+      const { token, user } = await this.createToken(createUserToken, fields.email, fields.password);
+      UserState.setAuth(token, user);
+      this.setState({ shouldRedirect: true });
+    } catch (err) {
+      console.error(err);
+      this.setState({ errorMessage: err.message });
+    }
+  }
+
+  private async createToken(createUserToken: CreateUserTokenMutation, email: string, password: string): Promise<AuthToken> {
     const res = await createUserToken({
       variables: {
-        email: fields.email,
-        password: fields.password
+        email,
+        password
       }
     });
-    if (!res) { return; }
+    if (!res) { throw new Error("no response"); }
     if (res.errors) {
       const messages: string[] = res.errors.map(e => e.message);
       if (messages.includes("invalid email or password")) {
-        this.setState({ errorMessage: "Invalid email or password." });
+        throw new Error("Invalid email or password.");
       } else {
         console.error(res.errors);
-        this.setState({ errorMessage: "Server-side error occurred:\n" + messages.join("\n") });
+        throw new Error(`Server-side error occurred:\n${messages.join("\n")}`);
       }
     } else if (res.data) {
-      UserState.setToken(res.data.token);
-      this.setState({ shouldRedirect: true });
+      return res.data.authToken;
     }
+    throw new Error("no data");
   }
 
   render() {

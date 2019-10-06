@@ -1,6 +1,8 @@
 import { AppBar, createStyles, MenuItem, Toolbar, withStyles, WithStyles } from "@material-ui/core";
+import * as _ from "lodash";
 import React from "react";
 import { Link, RouteComponentProps, withRouter } from "react-router-dom";
+import { Permission } from "../graphql/types";
 import { UserState } from "./auth/UserState";
 
 const styles = createStyles({
@@ -15,9 +17,18 @@ const NAVBAR_LINKS = {
     "Hello!": "/"
   },
   authRequired: {
-    Media: "/media",
-    Categories: "/storyCategories",
-    Favorites: "/storyFavorites"
+    Media: {
+      link: "/media",
+      permission: Permission.Media
+    },
+    Categories: {
+      link: "/storyCategories",
+      permission: Permission.Stories
+    },
+    Favorites: {
+      link: "/storyFavorites",
+      permission: Permission.Stories
+    }
   }
 };
 
@@ -35,15 +46,21 @@ export const Navbar = withRouter(withStyles(styles)(class extends React.Componen
     };
   }
 
-  renderLinks(links: {[key: string]: string}) {
+  renderLinks(links: {[key: string]: string | { link: string; permission: Permission }}) {
     const { classes } = this.props;
-    return Object.keys(links).map(label => (
-      <MenuItem key={label} onClick={this.onNavigate(links[label])}>
-        <Link to={links[label]} className={classes.link}>
-          {label}
-        </Link>
-      </MenuItem>
-    ));
+    return _.compact(Object.entries(links).map(([label, item]) => {
+      const link = typeof(item) === "string" ? item : item.link;
+      if (typeof(item) !== "string" && !UserState.isAuthorized(item.permission)) {
+        return undefined;
+      }
+      return (
+        <MenuItem key={label} onClick={this.onNavigate(link)}>
+          <Link to={link} className={classes.link}>
+            {label}
+          </Link>
+        </MenuItem>
+      );
+    }));
   }
 
   render() {

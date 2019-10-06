@@ -12,7 +12,7 @@ export class LogoutScene extends React.Component<{}, LogoutSceneState> {
   };
 
   componentDidMount() {
-    UserState.deleteToken();
+    UserState.removeAuth();
     this.setState({ isLoggedOut: true });
   }
 
