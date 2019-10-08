@@ -1,3 +1,5 @@
+ARG REACT_APP_API_URL
+
 FROM node:10-alpine
 # alpine is so much better
 
