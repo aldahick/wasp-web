@@ -1,4 +1,5 @@
 FROM node:10-alpine
+# alpine is so much better
 
 EXPOSE 5000
 
