@@ -3,10 +3,10 @@ import { IndexScene } from "./scene";
 import { LoginScene } from "./scene/login";
 import { LogoutScene } from "./scene/logout";
 import { MediaScene } from "./scene/media";
+import { StoryCategoriesScene } from "./scene/stories/categories";
+import { StoryCategoryScene } from "./scene/stories/category";
+import { StoryFavoritesScene } from "./scene/stories/favorites";
 import { StoryScene } from "./scene/stories/story";
-import { StoryCategoriesScene } from "./scene/stories/storyCategories";
-import { StoryCategoryScene } from "./scene/stories/storyCategory";
-import { StoryFavoritesScene } from "./scene/stories/storyFavorites";
 
 interface SceneDefinition {
   component: React.ComponentType<any>;

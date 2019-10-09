@@ -2,8 +2,8 @@ import { Divider, Grid, Typography } from "@material-ui/core";
 import { DocumentNode } from "graphql";
 import React, { ReactNode } from "react";
 import { Query } from "react-apollo";
-import { PagedView } from "../../component/story/PagedView";
-import { StoryListLink } from "../../component/story/StoryListLink";
+import { PagedView } from "../../component/stories/PagedView";
+import { StoryListLink } from "../../component/stories/StoryListLink";
 import { StoriesResult, Story } from "../../graphql/types";
 
 interface StoryCategoryProps<Params> {

@@ -6,7 +6,7 @@ import * as _ from "lodash";
 import React, { Fragment, ReactNode } from "react";
 import { Mutation, Query } from "react-apollo";
 import { RouteComponentProps } from "react-router";
-import { PagedView } from "../../component/story/PagedView";
+import { PagedView } from "../../component/stories/PagedView";
 import { STORY_BODY, StoryBodyParams, StoryBodyResult, TOGGLE_STORY_FAVORITE, ToggleStoryFavoriteParams } from "../../graphql/stories";
 import { Story } from "../../graphql/types";
 
@@ -41,7 +41,7 @@ export class StoryScene extends React.Component<StoryProps> {
           return (
             <Fragment>
               <Grid container>
-                <IconButton onClick={() => this.props.history.push(lastCategoryId ? `/storyCategory/${lastCategoryId}` : "/storyCategories")}>
+                <IconButton onClick={() => this.props.history.push(lastCategoryId ? `/stories/category/${lastCategoryId}` : "/stories/categories")}>
                   <BackIcon />
                 </IconButton>
                 <Mutation<{}, ToggleStoryFavoriteParams> mutation={TOGGLE_STORY_FAVORITE}>
