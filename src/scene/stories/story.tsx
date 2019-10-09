@@ -6,9 +6,9 @@ import * as _ from "lodash";
 import React, { Fragment, ReactNode } from "react";
 import { Mutation, Query } from "react-apollo";
 import { RouteComponentProps } from "react-router";
-import { PagedView } from "../component/story/PagedView";
-import { STORY_BODY, StoryBodyParams, StoryBodyResult, TOGGLE_STORY_FAVORITE, ToggleStoryFavoriteParams } from "../graphql/stories";
-import { Story } from "../graphql/types";
+import { PagedView } from "../../component/story/PagedView";
+import { STORY_BODY, StoryBodyParams, StoryBodyResult, TOGGLE_STORY_FAVORITE, ToggleStoryFavoriteParams } from "../../graphql/stories";
+import { Story } from "../../graphql/types";
 
 type StoryProps = {
   story: Story;

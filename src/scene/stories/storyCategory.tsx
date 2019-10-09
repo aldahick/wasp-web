@@ -1,7 +1,7 @@
 import React from "react";
 import { RouteComponentProps } from "react-router";
-import { StoryList } from "../component/story/StoryList";
-import { STORIES_BY_CATEGORY } from "../graphql/stories";
+import { StoryList } from "../../component/story/StoryList";
+import { STORIES_BY_CATEGORY } from "../../graphql/stories";
 
 type StoryCategoryProps = RouteComponentProps<{
   categoryId: string;

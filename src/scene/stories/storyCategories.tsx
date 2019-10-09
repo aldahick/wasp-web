@@ -2,10 +2,10 @@ import { Divider, Grid, Typography } from "@material-ui/core";
 import * as _ from "lodash";
 import React, { ReactNode } from "react";
 import { Query } from "react-apollo";
-import { PagedView } from "../component/story/PagedView";
-import { StoryListLink } from "../component/story/StoryListLink";
-import { STORY_CATEGORIES, StoryCategoriesResult } from "../graphql/stories";
-import { StoryCategory, StoryCategoryType } from "../graphql/types";
+import { PagedView } from "../../component/story/PagedView";
+import { StoryListLink } from "../../component/story/StoryListLink";
+import { STORY_CATEGORIES, StoryCategoriesResult } from "../../graphql/stories";
+import { StoryCategory, StoryCategoryType } from "../../graphql/types";
 
 export class StoryCategoriesScene extends React.Component<{}> {
   private renderPage(categories: StoryCategory[]): ReactNode {
