@@ -1,43 +1,25 @@
-import { Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import React from "react";
-import { Query } from "react-apollo";
-import { GET_USERS, GetUsersResult } from "../../graphql/admin/users";
+import { CreateUserForm } from "../../component/admin/CreateUserForm";
+import { UserList } from "../../component/admin/UserList";
 
 interface AdminUsersState {
-  limit: number;
-  offset: number;
+  isCreatingUser: boolean;
 }
 
 export class AdminUsersScene extends React.Component<{}, AdminUsersState> {
   readonly state: AdminUsersState = {
-    limit: 10,
-    offset: 0
+    isCreatingUser: false
   };
 
   render() {
+    if (this.state.isCreatingUser) {
+      return <CreateUserForm onComplete={() => this.setState({ isCreatingUser: false })} />;
+    }
     return (
-      <Query<GetUsersResult> query={GET_USERS} variables={this.state}>
-        {({ loading, data, error }) => {
-          if (loading) { return <Typography>Loading...</Typography>; }
-          if (error || !data) { return <Typography>Error occurred: {error ? error.message : "no data"}</Typography>; }
-          return (
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Email</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.users.map(user => (
-                  <TableRow key={user._id}>
-                    <TableCell>{user.email}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          );
-        }}
-      </Query>
+      <UserList>
+        <Button onClick={() => this.setState({ isCreatingUser: true })}>Create User</Button>
+      </UserList>
     );
   }
 }

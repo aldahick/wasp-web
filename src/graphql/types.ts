@@ -6,6 +6,8 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Date: any;
+  Datetime: any;
   /** The `Upload` scalar type represents a file upload. */
   Upload: File;
   DateTime: Date;
@@ -172,10 +174,11 @@ export enum StoryCategoryType {
 export type User = {
   __typename?: "User";
   _id: Scalars["String"];
+  createdAt: Scalars["Date"];
   email: Scalars["String"];
   permissions: Array<Permission>;
   profile: UserProfile;
-  roles: Array<Maybe<Role>>;
+  roles: Array<Role>;
 };
 
 export type UserProfile = {

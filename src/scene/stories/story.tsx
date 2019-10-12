@@ -9,6 +9,7 @@ import { RouteComponentProps } from "react-router";
 import { PagedView } from "../../component/stories/PagedView";
 import { STORY_BODY, StoryBodyParams, StoryBodyResult, TOGGLE_STORY_FAVORITE, ToggleStoryFavoriteParams } from "../../graphql/stories";
 import { Story } from "../../graphql/types";
+import { callMutationSafe } from "../../util/graphql";
 
 type StoryProps = {
   story: Story;
@@ -36,7 +37,6 @@ export class StoryScene extends React.Component<StoryProps> {
               </Typography>
             );
           }
-          console.log(data);
           const { _id, body, isFavorite } = data.story;
           return (
             <Fragment>
@@ -46,7 +46,7 @@ export class StoryScene extends React.Component<StoryProps> {
                 </IconButton>
                 <Mutation<{}, ToggleStoryFavoriteParams> mutation={TOGGLE_STORY_FAVORITE}>
                   {toggleStoryFavorite => (
-                    <IconButton onClick={() => toggleStoryFavorite({ variables: { id: _id } }).then(() => setTimeout(() => this.forceUpdate(), 2000))}>
+                    <IconButton onClick={() => callMutationSafe(toggleStoryFavorite, { id: _id }).then(() => setTimeout(() => this.forceUpdate(), 2000))}>
                       {isFavorite ? <FavoriteIcon color="secondary" /> : <FavoriteOutlinedIcon color="secondary" />}
                     </IconButton>
                   )}

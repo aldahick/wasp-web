@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { UserState } from "../component/auth";
 import { Form } from "../component/Form";
 import { CREATE_USER_TOKEN, CreateUserTokenMutation } from "../graphql/auth";
-import { AuthToken } from "../graphql/types";
+import { callMutationSafe } from "../util/graphql";
 
 interface LoginSceneState {
   shouldRedirect: boolean;
@@ -36,35 +36,17 @@ export const LoginScene = withStyles(styles)(class extends React.Component<WithS
     [key in "email" | "password"]: string;
   }) => {
     try {
-      const { token, user } = await this.createToken(createUserToken, fields.email, fields.password);
+      const { authToken: { token, user } } = await callMutationSafe(createUserToken, fields);
       UserState.setAuth(token, user);
       this.setState({ shouldRedirect: true });
     } catch (err) {
       console.error(err);
-      this.setState({ errorMessage: err.message });
+      this.setState({
+        errorMessage: err.message.includes("invalid email or password")
+          ? "Invalid email or password."
+          : err.message
+      });
     }
-  }
-
-  private async createToken(createUserToken: CreateUserTokenMutation, email: string, password: string): Promise<AuthToken> {
-    const res = await createUserToken({
-      variables: {
-        email,
-        password
-      }
-    });
-    if (!res) { throw new Error("no response"); }
-    if (res.errors) {
-      const messages: string[] = res.errors.map(e => e.message);
-      if (messages.includes("invalid email or password")) {
-        throw new Error("Invalid email or password.");
-      } else {
-        console.error(res.errors);
-        throw new Error(`Server-side error occurred:\n${messages.join("\n")}`);
-      }
-    } else if (res.data) {
-      return res.data.authToken;
-    }
-    throw new Error("no data");
   }
 
   render() {
