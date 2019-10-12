@@ -98,6 +98,7 @@ export type Query = {
   randomStories: StoriesResult;
   storyCategories: Array<StoryCategory>;
   user?: Maybe<User>;
+  users: Array<User>;
 };
 
 export type QueryListMediaArgs = {
@@ -123,6 +124,11 @@ export type QueryRandomStoriesArgs = {
 
 export type QueryUserArgs = {
   id?: Maybe<Scalars["String"]>;
+};
+
+export type QueryUsersArgs = {
+  limit: Scalars["Int"];
+  offset: Scalars["Int"];
 };
 
 export type Role = {
@@ -166,6 +172,7 @@ export enum StoryCategoryType {
 export type User = {
   __typename?: "User";
   _id: Scalars["String"];
+  email: Scalars["String"];
   permissions: Array<Permission>;
   profile: UserProfile;
   roles: Array<Maybe<Role>>;

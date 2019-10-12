@@ -17,17 +17,21 @@ const NAVBAR_LINKS = {
     "Hello!": "/"
   },
   authRequired: {
-    Media: {
+    "Media": {
       link: "/media",
       permission: Permission.Media
     },
-    Categories: {
+    "Categories": {
       link: "/storyCategories",
       permission: Permission.Stories
     },
-    Favorites: {
+    "Favorites": {
       link: "/storyFavorites",
       permission: Permission.Stories
+    },
+    "User Management": {
+      link: "/admin/users",
+      permission: Permission.ManageUsers
     }
   }
 };

@@ -1,5 +1,6 @@
 import { RouteComponentProps } from "react-router";
 import { IndexScene } from "./scene";
+import { AdminUsersScene } from "./scene/admin/users";
 import { LoginScene } from "./scene/login";
 import { LogoutScene } from "./scene/logout";
 import { MediaScene } from "./scene/media";
@@ -54,6 +55,11 @@ const scenes: SceneDefinition[] = [
   {
     component: StoryScene,
     route: "/story/:storyId",
+    isPrivate: true
+  },
+  {
+    component: AdminUsersScene,
+    route: "/admin/users",
     isPrivate: true
   }
 ];
