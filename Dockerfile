@@ -1,5 +1,3 @@
-ARG REACT_APP_API_URL
-
 FROM node:10-alpine
 # alpine is so much better
 
@@ -17,6 +15,9 @@ COPY src /app/src
 
 RUN yarn install
 RUN yarn lint
+# building here for CI verification
 RUN yarn build
+RUN rm -rf build
 
+# building here so that appropriate env variables can be inserted outside of CI
 CMD ["yarn", "start:prod"]

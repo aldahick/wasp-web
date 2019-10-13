@@ -9,7 +9,7 @@
     "eject": "react-scripts eject",
     "lint": "tslint -p .",
     "generate": "graphql-codegen --config codegen.graphql.yml",
-    "start:prod": "serve -s build"
+    "start:prod": "yarn build && serve -s build"
   },
   "dependencies": {
     "@material-ui/core": "4.3.1",
