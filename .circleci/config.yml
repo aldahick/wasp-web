@@ -1,0 +1,78 @@
+version: 2.1
+
+jobs:
+  npm:
+    docker:
+      - image: circleci/node
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - npm-{{ checksum "yarn.lock" }}
+            - npm-
+      - run:
+          name: Install NPM modules
+          command: yarn install
+      - save_cache:
+          key: npm-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+
+  lint:
+    docker:
+      - image: circleci/node
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - npm-{{ checksum "yarn.lock" }}
+      - run:
+          name: Lint
+          command: yarn lint
+
+  build:
+    docker:
+      - image: circleci/node
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - npm-{{ checksum "yarn.lock" }}
+      - run:
+          name: Build
+          command: yarn build
+
+  deploy:
+    docker:
+      - image: circleci/node
+    steps:
+      - checkout
+      - setup_remote_docker
+      - restore_cache:
+          keys:
+            - npm-{{ checksum "yarn.lock" }}
+      - run:
+          name: Build Docker Image
+          command: |
+            echo "$DOCKER_PASS" | docker login --username "$DOCKER_USER" --password-stdin "$DOCKER_REGISTRY"
+            docker build -t "$DOCKER_REPO:latest" .
+            docker push "$DOCKER_REPO:latest"
+
+workflows:
+  version: 2.1
+  build_and_deploy:
+    jobs:
+      - npm
+      - lint:
+          requires:
+            - npm
+      - build:
+          requires:
+            - npm
+      - deploy:
+          requires:
+            - build
+            - lint
+          filters:
+            branches:
+              only: master
