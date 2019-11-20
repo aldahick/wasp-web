@@ -14,6 +14,8 @@ RUN yarn install
 RUN yarn lint
 # building here for verification in CI
 RUN yarn build
+# and promptly removing the output
+RUN yarn clean
 
 # building here so that appropriate env variables can be inserted outside of CI
 CMD ["yarn", "start:prod"]
