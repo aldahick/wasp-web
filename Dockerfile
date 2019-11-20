@@ -13,7 +13,7 @@ COPY src /app/src
 RUN yarn install
 RUN yarn lint
 # building here for verification in CI
-RUN yarn build
+RUN yarn compile
 # and promptly removing the output
 RUN yarn clean
 
