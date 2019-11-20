@@ -4,10 +4,9 @@ import { Query } from "./types";
 export const STORY_BODY = gql`
 query WebStoryBody($storyId: Int!) {
   story(id: $storyId) {
-    _id
+    id
     body
     categoryId
-    isFavorite
   }
 }
 `;
@@ -23,7 +22,7 @@ query WebFavoriteStories($page: Int!) {
   stories: favoriteStories(page: $page) {
     pageCount
     stories {
-      _id
+      id
       categoryId
       title
       description
@@ -43,7 +42,7 @@ query WebStoriesByCategory($categoryId: Int!, $page: Int!) {
   stories: storiesByCategory(categoryId: $categoryId, page: $page) {
     pageCount
     stories {
-      _id
+      id
       categoryId
       title
       description
@@ -62,7 +61,7 @@ export interface StoriesByCategoryResult {
 export const STORY_CATEGORIES = gql`
 query WebStoryCategories {
   categories: storyCategories {
-    _id
+    id
     name
     description
     type
