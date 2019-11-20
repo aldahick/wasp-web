@@ -1,6 +1,5 @@
 import { Grid, IconButton, Typography } from "@material-ui/core";
 import BackIcon from "@material-ui/icons/ArrowBack";
-import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
 import * as _ from "lodash";
 import React, { Fragment, ReactNode } from "react";
@@ -37,7 +36,7 @@ export class StoryScene extends React.Component<StoryProps> {
               </Typography>
             );
           }
-          const { _id, body, isFavorite } = data.story;
+          const { id, body } = data.story;
           return (
             <Fragment>
               <Grid container>
@@ -46,14 +45,14 @@ export class StoryScene extends React.Component<StoryProps> {
                 </IconButton>
                 <Mutation<{}, ToggleStoryFavoriteParams> mutation={TOGGLE_STORY_FAVORITE}>
                   {toggleStoryFavorite => (
-                    <IconButton onClick={() => callMutationSafe(toggleStoryFavorite, { id: _id }).then(() => setTimeout(() => this.forceUpdate(), 2000))}>
-                      {isFavorite ? <FavoriteIcon color="secondary" /> : <FavoriteOutlinedIcon color="secondary" />}
+                    <IconButton onClick={() => callMutationSafe(toggleStoryFavorite, { id }).then(() => setTimeout(() => this.forceUpdate(), 2000))}>
+                      <FavoriteOutlinedIcon color="secondary" />
                     </IconButton>
                   )}
                 </Mutation>
               </Grid>
               <PagedView
-                pages={_.chunk(body.split(/<br \/>+/), 10)}
+                pages={_.chunk(body ? body.split(/<br \/>+/) : [], 10)}
                 renderPage={this.renderPage}
               />
             </Fragment>
