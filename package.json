@@ -18,7 +18,6 @@
     "type": "git",
     "url": "git+https://github.com/aldahick/wasp-web"
   },
-  "homepage": "https://github.com/aldahick/wasp-web#readme",
   "dependencies": {
     "@material-ui/core": "4.6.1",
     "@material-ui/icons": "4.5.1",
