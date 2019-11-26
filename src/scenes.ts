@@ -20,7 +20,7 @@ const scenes: SceneDefinition[] = [
   {
     component: IndexScene,
     route: "/",
-    isPrivate: true
+    isPrivate: false
   },
   {
     component: LoginScene,

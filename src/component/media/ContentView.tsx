@@ -22,7 +22,6 @@ interface ContentViewState {
 }
 
 const TEXT_MIME_TYPES = ["text/html", "text/plain"];
-const VIDEO_MIME_TYPES = ["video/mp4"];
 
 export const ContentView = withStyles(styles)(class extends React.Component<ContentViewProps, ContentViewState> {
   readonly state: ContentViewState = {};
