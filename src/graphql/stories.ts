@@ -64,7 +64,6 @@ query WebStoryCategories {
     id
     name
     description
-    type
   }
 }
 `;

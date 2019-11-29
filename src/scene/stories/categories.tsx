@@ -25,7 +25,7 @@ export class StoryCategoriesScene extends React.Component<{}> {
     return (
       <Query<StoryCategoriesResult> query={STORY_CATEGORIES}>
         {({ loading, data, error }) => {
-          if (loading) { return null; }
+          if (loading) { return <Typography>Loading...</Typography>; }
           if (error || !data) {
             return (
               <Typography color="error">

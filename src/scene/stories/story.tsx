@@ -28,7 +28,7 @@ export class StoryScene extends React.Component<StoryProps> {
     return (
       <Query<StoryBodyResult, StoryBodyParams> query={STORY_BODY} variables={{ storyId: Number(this.props.match.params.storyId) }}>
         {({ loading, data, error }) => {
-          if (loading) { return null; }
+          if (loading) { return <Typography>Loading...</Typography>; }
           if (error || !data) {
             return (
               <Typography color="error">

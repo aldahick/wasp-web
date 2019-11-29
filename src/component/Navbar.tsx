@@ -22,11 +22,11 @@ const NAVBAR_LINKS = {
       permission: Permission.Media
     },
     "Categories": {
-      link: "/storyCategories",
+      link: "/stories/categories",
       permission: Permission.Stories
     },
     "Favorites": {
-      link: "/storyFavorites",
+      link: "/stories/favorites",
       permission: Permission.Stories
     },
     "User Management": {

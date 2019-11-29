@@ -39,22 +39,22 @@ const scenes: SceneDefinition[] = [
   },
   {
     component: StoryCategoriesScene,
-    route: "/storyCategories",
+    route: "/stories/categories",
     isPrivate: true
   },
   {
     component: StoryFavoritesScene,
-    route: "/storyFavorites",
+    route: "/stories/favorites",
     isPrivate: true
   },
   {
     component: StoryCategoryScene,
-    route: "/storyCategory/:categoryId",
+    route: "/stories/category/:categoryId",
     isPrivate: true
   },
   {
     component: StoryScene,
-    route: "/story/:storyId",
+    route: "/stories/:storyId",
     isPrivate: true
   },
   {

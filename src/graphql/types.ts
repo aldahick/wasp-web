@@ -44,6 +44,7 @@ export type Mutation = {
   createUserToken: AuthToken,
   addPermissionsToRole: Scalars['Boolean'],
   createRole: Role,
+  createStoryProfile: Scalars['Boolean'],
   toggleStoryFavorite: Scalars['Boolean'],
   addRoleToUser: Scalars['Boolean'],
   createUser: User,
@@ -66,6 +67,12 @@ export type MutationAddPermissionsToRoleArgs = {
 
 export type MutationCreateRoleArgs = {
   name: Scalars['String']
+};
+
+
+export type MutationCreateStoryProfileArgs = {
+  username: Scalars['String'],
+  password: Scalars['String']
 };
 
 
@@ -159,7 +166,7 @@ export type StoriesResult = {
 export type Story = {
    __typename?: 'Story',
   id: Scalars['Int'],
-  categoryId: Scalars['Int'],
+  categoryId?: Maybe<Scalars['Int']>,
   title: Scalars['String'],
   description: Scalars['String'],
   body?: Maybe<Scalars['String']>,

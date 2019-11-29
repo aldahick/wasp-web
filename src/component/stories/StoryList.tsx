@@ -25,7 +25,7 @@ export class StoryList<Params extends {}> extends React.Component<StoryCategoryP
       {stories.map(story => (
         <Grid item key={story.id}>
           <StoryListLink
-            to={`/story/${story.id}`}
+            to={`/stories/${story.id}`}
             title={story.title}
             description={story.description}
           />

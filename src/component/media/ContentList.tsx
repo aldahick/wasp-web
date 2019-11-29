@@ -65,7 +65,7 @@ export class ContentList extends React.Component<ContentListProps, ContentListSt
           }
           this.state.rows.push({
             options: data.listMedia,
-            selected: data.listMedia[0].key
+            selected: (data.listMedia[0] || {}).key
           });
           return (
             <Grid container>
