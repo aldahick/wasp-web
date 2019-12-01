@@ -35,8 +35,14 @@ export enum CacheControlScope {
 export type MediaItem = {
    __typename?: 'MediaItem',
   key: Scalars['String'],
-  isFile: Scalars['Boolean'],
+  type: MediaItemType,
 };
+
+export enum MediaItemType {
+  File = 'file',
+  Directory = 'directory',
+  Series = 'series'
+}
 
 export type Mutation = {
    __typename?: 'Mutation',
@@ -111,6 +117,7 @@ export type Query = {
   listMedia: Array<Maybe<MediaItem>>,
   roles: Array<Maybe<Role>>,
   story: Story,
+  storySeries: Array<Story>,
   storiesByCategory: StoriesResult,
   favoriteStories: StoriesResult,
   storyCategories: Array<StoryCategory>,
@@ -125,6 +132,11 @@ export type QueryListMediaArgs = {
 
 
 export type QueryStoryArgs = {
+  id: Scalars['Int']
+};
+
+
+export type QueryStorySeriesArgs = {
   id: Scalars['Int']
 };
 
@@ -170,6 +182,7 @@ export type Story = {
   title: Scalars['String'],
   description: Scalars['String'],
   body?: Maybe<Scalars['String']>,
+  series?: Maybe<StorySeries>,
 };
 
 export type StoryCategory = {
@@ -178,6 +191,12 @@ export type StoryCategory = {
   name: Scalars['String'],
   description: Scalars['String'],
   code: Scalars['String'],
+};
+
+export type StorySeries = {
+   __typename?: 'StorySeries',
+  id: Scalars['Int'],
+  stories: Array<Story>,
 };
 
 

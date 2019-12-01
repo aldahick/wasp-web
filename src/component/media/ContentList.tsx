@@ -2,7 +2,7 @@ import { Button, Grid, MenuItem, Select, Typography } from "@material-ui/core";
 import React from "react";
 import { Query } from "react-apollo";
 import { LIST_MEDIA, ListMediaResult } from "../../graphql/listMedia";
-import { QueryListMediaArgs } from "../../graphql/types";
+import { MediaItemType, QueryListMediaArgs } from "../../graphql/types";
 import { ContentView } from "./ContentView";
 
 interface ContentListProps {
@@ -15,7 +15,7 @@ interface ContentListState {
     selected?: string;
     options: {
       key: string;
-      isFile: boolean;
+      type: MediaItemType;
     }[];
   }[];
 }
@@ -85,8 +85,8 @@ export class ContentList extends React.Component<ContentListProps, ContentListSt
           <Grid container justify="center" key={index}>
             <Grid item xs={10} sm={8} md={6}>
               <Select style={{ width: "100%" }} value={row.selected} onChange={this.onSelectChange(index)}>
-                {row.options.map(({ key, isFile }) => (
-                  <MenuItem key={key} value={key} data-isfile={isFile}>
+                {row.options.map(({ key, type }) => (
+                  <MenuItem key={key} value={key} data-isfile={type === MediaItemType.File}>
                     <Typography>{key}</Typography>
                   </MenuItem>
                 ))}

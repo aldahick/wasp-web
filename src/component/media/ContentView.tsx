@@ -74,6 +74,8 @@ export const ContentView = withStyles(styles)(class extends React.Component<Cont
       case "audio/mp3":
       case "audio/mpeg":
         return <audio controls autoPlay src={this.contentUrl(targetKey)} />;
+      case "image/jpg":
+      case "image/jpeg":
       case "image/png":
         return <img alt={this.props.targetKey} src={this.contentUrl(targetKey)} />;
       case "text/html":
