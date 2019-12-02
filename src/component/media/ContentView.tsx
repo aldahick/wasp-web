@@ -14,6 +14,7 @@ const styles = createStyles({
 
 type ContentViewProps = {
   targetKey: string;
+  onClick?: () => void;
 } & WithStyles<typeof styles>;
 
 interface ContentViewState {
@@ -58,9 +59,9 @@ export const ContentView = withStyles(styles)(class extends React.Component<Cont
   }
 
   render() {
-    const { classes, targetKey } = this.props;
+    const { classes, onClick, targetKey } = this.props;
     if (this.state.errorMessage) {
-      return <Typography color="error">{this.state.errorMessage}</Typography>;
+      return <Typography onClick={onClick} color="error">{this.state.errorMessage}</Typography>;
     }
     switch (this.mimeType(targetKey)) {
       case "video/quicktime":
@@ -69,20 +70,20 @@ export const ContentView = withStyles(styles)(class extends React.Component<Cont
         if (isIOS) {
           videoProps.muted = true;
         }
-        return <video style={{ width: "100%" }} controls autoPlay src={this.contentUrl(targetKey)} {...videoProps} />;
+        return <video onClick={onClick} style={{ width: "100%" }} controls autoPlay src={this.contentUrl(targetKey)} {...videoProps} />;
       case "audio/mp4":
       case "audio/mp3":
       case "audio/mpeg":
-        return <audio controls autoPlay src={this.contentUrl(targetKey)} />;
+        return <audio onClick={onClick} controls autoPlay src={this.contentUrl(targetKey)} />;
       case "image/jpg":
       case "image/jpeg":
       case "image/png":
-        return <img alt={this.props.targetKey} src={this.contentUrl(targetKey)} />;
+        return <img onClick={onClick} alt={this.props.targetKey} src={this.contentUrl(targetKey)} />;
       case "text/html":
-        return <div dangerouslySetInnerHTML={{ __html: this.state.data || "No HTML" }} />;
+        return <div onClick={onClick} dangerouslySetInnerHTML={{ __html: this.state.data || "No HTML" }} />;
       case "text/plain":
-        return <div className={classes.textContent}>{this.state.data}</div>;
+        return <div onClick={onClick} className={classes.textContent}>{this.state.data}</div>;
     }
-    return <Typography color="error">Invalid MIME type {this.mimeType}.</Typography>;
+    return <Typography onClick={onClick} color="error">Invalid MIME type {this.mimeType}.</Typography>;
   }
 });

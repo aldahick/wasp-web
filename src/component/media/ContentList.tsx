@@ -3,14 +3,10 @@ import React from "react";
 import { Query } from "react-apollo";
 import { LIST_MEDIA, ListMediaResult } from "../../graphql/listMedia";
 import { MediaItemType, QueryListMediaArgs } from "../../graphql/types";
+import { ContentSeries } from "./ContentSeries";
 import { ContentView } from "./ContentView";
 
-interface ContentListProps {
-  dir: string;
-}
-
 interface ContentListState {
-  isFileSelected: boolean;
   rows: {
     selected?: string;
     options: {
@@ -20,15 +16,21 @@ interface ContentListState {
   }[];
 }
 
-export class ContentList extends React.Component<ContentListProps, ContentListState> {
+export class ContentList extends React.Component<{}, ContentListState> {
   readonly state: ContentListState = {
-    isFileSelected: false,
     rows: []
   };
 
   get selectedKey() {
-    const { rows: selected } = this.state;
-    return selected.map(r => r.selected).join("/");
+    return this.state.rows.map(r => r.selected).join("/");
+  }
+
+  get selectedType() {
+    const lastRow = this.state.rows.slice(-1)[0];
+    if (!lastRow) { return undefined; }
+    const selected = lastRow.selected;
+    if (!selected) { return undefined; }
+    return lastRow.options.find(o => o.key === selected)!.type;
   }
 
   onListSubmit = (index: number) => () => {
@@ -39,23 +41,26 @@ export class ContentList extends React.Component<ContentListProps, ContentListSt
   onSelectChange = (index: number) => (evt: React.ChangeEvent<{ name?: string; value: unknown }>, child: any) => {
     const { rows } = this.state;
     rows[index].selected = evt.target.value as string;
-    this.setState({ rows: rows.splice(0, index + 1), isFileSelected: child.props["data-isfile"] });
+    this.setState({ rows: rows.splice(0, index + 1) });
   }
 
   render() {
-    const { isFileSelected } = this.state;
-    if (isFileSelected) {
+    const selectedType = this.selectedType;
+    if (selectedType && selectedType !== MediaItemType.Directory) {
       return (
         <Grid container>
           {this.renderSelect()}
-          <ContentView targetKey={this.selectedKey} />
+          {selectedType === MediaItemType.Series
+            ? <ContentSeries dir={this.selectedKey} />
+            : <ContentView targetKey={this.selectedKey} />
+          }
         </Grid>
       );
     }
     return (
       <Query<ListMediaResult, QueryListMediaArgs> query={LIST_MEDIA} variables={{ dir: this.selectedKey }}>
         {({ data, loading, error }) => {
-          if (loading) { return null; }
+          if (loading) { return <Typography>Loading...</Typography>; }
           if (error || !data) {
             return (
               <Typography color="error">
@@ -69,6 +74,7 @@ export class ContentList extends React.Component<ContentListProps, ContentListSt
           });
           return (
             <Grid container>
+              {}
               {this.renderSelect()}
             </Grid>
           );
