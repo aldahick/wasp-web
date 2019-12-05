@@ -2,7 +2,7 @@ import { Button, Grid, Typography } from "@material-ui/core";
 import * as _ from "lodash";
 import React, { Fragment } from "react";
 import { Query } from "react-apollo";
-import { LIST_MEDIA, ListMediaResult } from "../../graphql/listMedia";
+import { LIST_MEDIA, ListMediaResult } from "../../graphql/media";
 import { MediaItemType, QueryListMediaArgs } from "../../graphql/types";
 import { ContentView } from "./ContentView";
 

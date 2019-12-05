@@ -1,7 +1,7 @@
 import { Button, Grid, MenuItem, Select, Typography } from "@material-ui/core";
 import React from "react";
 import { Query } from "react-apollo";
-import { LIST_MEDIA, ListMediaResult } from "../../graphql/listMedia";
+import { LIST_MEDIA, ListMediaResult } from "../../graphql/media";
 import { MediaItemType, QueryListMediaArgs } from "../../graphql/types";
 import { ContentSeries } from "./ContentSeries";
 import { ContentView } from "./ContentView";

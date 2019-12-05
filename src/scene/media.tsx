@@ -1,10 +1,14 @@
-import React from "react";
+import React, { Fragment } from "react";
+import { ContentActions } from "../component/media/ContentActions";
 import { ContentList } from "../component/media/ContentList";
 
 export class MediaScene extends React.Component {
   render() {
     return (
-      <ContentList />
+      <Fragment>
+        <ContentActions />
+        <ContentList />
+      </Fragment>
     );
   }
 }

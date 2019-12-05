@@ -48,6 +48,7 @@ export type Mutation = {
    __typename?: 'Mutation',
   createSystemToken: AuthToken,
   createUserToken: AuthToken,
+  scrapeMedia: Array<MediaItem>,
   addPermissionsToRole: Scalars['Boolean'],
   createRole: Role,
   createStoryProfile: Scalars['Boolean'],
@@ -62,6 +63,12 @@ export type MutationCreateUserTokenArgs = {
   id?: Maybe<Scalars['String']>,
   email?: Maybe<Scalars['String']>,
   password?: Maybe<Scalars['String']>
+};
+
+
+export type MutationScrapeMediaArgs = {
+  url: Scalars['String'],
+  destination: Scalars['String']
 };
 
 
@@ -114,7 +121,7 @@ export enum Permission {
 export type Query = {
    __typename?: 'Query',
   hello: Scalars['String'],
-  listMedia: Array<Maybe<MediaItem>>,
+  listMedia: Array<MediaItem>,
   roles: Array<Maybe<Role>>,
   story: Story,
   storySeries: Array<Story>,
