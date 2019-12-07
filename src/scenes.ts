@@ -8,6 +8,8 @@ import { StoryCategoriesScene } from "./scene/stories/categories";
 import { StoryCategoryScene } from "./scene/stories/category";
 import { StoryFavoritesScene } from "./scene/stories/favorites";
 import { StoryScene } from "./scene/stories/story";
+import { WestWingEpisodeScene } from "./scene/westWing/episode";
+import { WestWingEpisodesScene } from "./scene/westWing/episodes";
 
 interface SceneDefinition {
   component: React.ComponentType<any>;
@@ -61,6 +63,16 @@ const scenes: SceneDefinition[] = [
     component: AdminUsersScene,
     route: "/admin/users",
     isPrivate: true
+  },
+  {
+    component: WestWingEpisodesScene,
+    route: "/westwing/episodes",
+    isPrivate: false
+  },
+  {
+    component: WestWingEpisodeScene,
+    route: "/westwing/episodes/:episodeId",
+    isPrivate: false
   }
 ];
 

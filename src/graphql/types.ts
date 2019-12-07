@@ -130,6 +130,9 @@ export type Query = {
   storyCategories: Array<StoryCategory>,
   user?: Maybe<User>,
   users: Array<User>,
+  westWingEpisode: WestWingEpisode,
+  westWingEpisodes: Array<WestWingEpisode>,
+  westWingSeasons: Array<WestWingSeason>,
 };
 
 
@@ -167,6 +170,16 @@ export type QueryUserArgs = {
 export type QueryUsersArgs = {
   limit: Scalars['Int'],
   offset: Scalars['Int']
+};
+
+
+export type QueryWestWingEpisodeArgs = {
+  id: Scalars['Int']
+};
+
+
+export type QueryWestWingEpisodesArgs = {
+  seasonId: Scalars['Int']
 };
 
 export type Role = {
@@ -227,5 +240,20 @@ export type UserProfile = {
 export type UserProfileInput = {
   firstName?: Maybe<Scalars['String']>,
   lastName?: Maybe<Scalars['String']>,
+};
+
+export type WestWingEpisode = {
+   __typename?: 'WestWingEpisode',
+  _id: Scalars['Int'],
+  title: Scalars['String'],
+  airedAt: Scalars['Date'],
+  number: Scalars['Int'],
+  season: WestWingSeason,
+  transcript?: Maybe<Scalars['String']>,
+};
+
+export type WestWingSeason = {
+   __typename?: 'WestWingSeason',
+  _id: Scalars['Int'],
 };
 

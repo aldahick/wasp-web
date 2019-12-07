@@ -12,11 +12,18 @@ const styles = createStyles({
   }
 });
 
+// links which don't matter, auth or not
+const BOTH_NAVBAR_LINKS = {
+  "West Wing": "/westwing/episodes"
+};
+
 const NAVBAR_LINKS = {
   noAuth: {
-    "Hello!": "/"
+    "Hello!": "/",
+    ...BOTH_NAVBAR_LINKS
   },
   authRequired: {
+    ...BOTH_NAVBAR_LINKS,
     "Media": {
       link: "/media",
       permission: Permission.Media
