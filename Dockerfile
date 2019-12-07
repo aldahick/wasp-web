@@ -5,6 +5,7 @@ EXPOSE 5000
 WORKDIR /app
 
 COPY .eslintrc.json /app/.eslintrc.json
+COPY .eslintignore /app/.eslintignore
 COPY package.json /app/package.json
 COPY yarn.lock /app/yarn.lock
 COPY tsconfig.json /app/tsconfig.json
