@@ -1,6 +1,6 @@
 # wasp-web
 
-CI [![CircleCI](https://circleci.com/gh/aldahick/wasp-web.svg?style=svg)](https://circleci.com/gh/aldahick/wasp-web)
+[![CircleCI](https://circleci.com/gh/aldahick/wasp-web.svg?style=svg)](https://circleci.com/gh/aldahick/wasp-web)
 
 The front-end for [wasp-server](https://github.com/aldahick/wasp-server).
 
