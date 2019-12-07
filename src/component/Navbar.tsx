@@ -12,7 +12,7 @@ const styles = createStyles({
   }
 });
 
-// links which don't matter, auth or not
+// Links which don't matter, auth or not
 const BOTH_NAVBAR_LINKS = {
   "West Wing": "/westwing/episodes"
 };

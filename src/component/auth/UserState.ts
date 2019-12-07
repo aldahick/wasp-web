@@ -4,7 +4,7 @@ const TOKEN_KEY = "wasp.auth.token";
 const USER_KEY = "wasp.auth.user";
 
 export const UserState = new (class {
-  public token?: string;
+  token?: string;
   private user?: User;
 
   constructor() {

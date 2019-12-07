@@ -17,7 +17,7 @@ export class CreateUserForm extends React.Component<CreateUserFormProps, CreateU
   readonly state: CreateUserFormState = { };
 
   private onCreateUser(createUser: CreateUserMutation) {
-    return async ({ email, password }: {[key: string]: string}) => {
+    return async({ email, password }: {[key: string]: string}) => {
       try {
         await callMutationSafe(createUser, { email, password });
         this.props.onComplete();

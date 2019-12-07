@@ -36,13 +36,13 @@ export class ContentList extends React.Component<{}, ContentListState> {
   onListSubmit = (index: number) => () => {
     this.state.rows.splice(index + 1, this.state.rows.length + 1 - index);
     this.setState({ rows: this.state.rows });
-  }
+  };
 
   onSelectChange = (index: number) => (evt: React.ChangeEvent<{ name?: string; value: unknown }>, child: any) => {
     const { rows } = this.state;
     rows[index].selected = evt.target.value as string;
     this.setState({ rows: rows.splice(0, index + 1) });
-  }
+  };
 
   render() {
     const selectedType = this.selectedType;

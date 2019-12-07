@@ -9,7 +9,7 @@
     "eject": "react-scripts eject",
     "clean": "rm -rf build",
     "compile": "tsc -p .",
-    "lint": "tslint -p .",
+    "lint": "eslint --ext .ts,.tsx src",
     "generate": "yarn generate:graphql",
     "generate:graphql": "graphql-codegen --config codegen.graphql.yml",
     "start:prod": "yarn build && serve -s build"
@@ -38,6 +38,7 @@
     "typeface-open-sans": "0.0.75"
   },
   "devDependencies": {
+    "@aldahick/eslint-rules": "0.1.2",
     "@graphql-codegen/cli": "1.8.3",
     "@graphql-codegen/typescript": "1.8.3",
     "@graphql-codegen/typescript-operations": "1.8.3",
@@ -50,8 +51,6 @@
     "@types/react-router-dom": "5.1.2",
     "react-scripts": "3.2.0",
     "serve": "11.2.0",
-    "tslint": "5.20.1",
-    "tslint-sonarts": "1.9.0",
     "typescript": "3.7.2"
   },
   "browserslist": {

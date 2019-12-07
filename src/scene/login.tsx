@@ -32,7 +32,7 @@ export const LoginScene = withStyles(styles)(class extends React.Component<WithS
     errorMessage: undefined
   };
 
-  submit = (createUserToken: CreateUserTokenMutation) => async (fields: {
+  submit = (createUserToken: CreateUserTokenMutation) => async(fields: {
     [key in "email" | "password"]: string;
   }) => {
     try {
@@ -47,7 +47,7 @@ export const LoginScene = withStyles(styles)(class extends React.Component<WithS
           : err.message
       });
     }
-  }
+  };
 
   render() {
     if (UserState.isAuthenticated || this.state.shouldRedirect) {

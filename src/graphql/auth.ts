@@ -13,5 +13,5 @@ mutation WebCreateUserToken($email: String!, $password: String!) {
 }`;
 
 export type CreateUserTokenMutation = MutationFunction<{
-  authToken: AuthToken
+  authToken: AuthToken;
 }, MutationCreateUserTokenArgs>;

@@ -20,7 +20,7 @@ export class ContentActions extends React.Component<{}, ContentActionsState> {
   };
 
   onSubmit(scrapeMedia: MutationFunction<ScrapeMediaResult, MutationScrapeMediaArgs>) {
-    return async (fields: MutationScrapeMediaArgs) => {
+    return async(fields: MutationScrapeMediaArgs) => {
       try {
         await callMutationSafe(scrapeMedia, fields);
         this.setState({

@@ -33,7 +33,7 @@ export class StoryList<Params extends {}> extends React.Component<StoryCategoryP
         </Grid>
       ))}
     </Grid>
-  )
+  );
 
   render() {
     const { page } = this.state;

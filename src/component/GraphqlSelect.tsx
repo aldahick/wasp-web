@@ -8,7 +8,7 @@ export interface GraphqlSelectProps<GraphqlResult, GraphqlVariables> {
   variables: GraphqlVariables;
   inputLabel: string;
   onChange(value: string): void;
-  getOptions(result: GraphqlResult): { label?: string; value: string; }[];
+  getOptions(result: GraphqlResult): { label?: string; value: string }[];
 }
 
 export interface GraphqlSelectState {
@@ -26,7 +26,7 @@ export class GraphqlSelect<GraphqlResult, GraphqlVariables> extends React.Compon
     this.setState({ selected: evt.target.value.toString() }, () => {
       onChange(this.state.selected!);
     });
-  }
+  };
 
   render() {
     const { query, variables, inputLabel, getOptions } = this.props;
