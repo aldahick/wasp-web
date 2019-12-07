@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@material-ui/core";
+import { Button, Grid } from "@material-ui/core";
 import * as _ from "lodash";
 import React, { Fragment } from "react";
 import { Query } from "react-apollo";

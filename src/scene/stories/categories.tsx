@@ -1,4 +1,4 @@
-import { Divider, Grid, Typography } from "@material-ui/core";
+import { Divider, Grid } from "@material-ui/core";
 import * as _ from "lodash";
 import React, { ReactNode } from "react";
 import { Query } from "react-apollo";
