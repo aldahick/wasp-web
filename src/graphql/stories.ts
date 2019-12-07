@@ -2,11 +2,14 @@ import gql from "graphql-tag";
 import { Query } from "./types";
 
 export const STORY_BODY = gql`
-query WebStoryBody($storyId: Int!) {
+query Web_StoryBody($storyId: Int!) {
   story(id: $storyId) {
     id
     body
     categoryId
+    series {
+      id
+    }
   }
 }
 `;
@@ -18,7 +21,7 @@ export interface StoryBodyResult {
 }
 
 export const FAVORITE_STORIES = gql`
-query WebFavoriteStories($page: Int!) {
+query Web_FavoriteStories($page: Int!) {
   stories: favoriteStories(page: $page) {
     pageCount
     stories {
@@ -30,15 +33,12 @@ query WebFavoriteStories($page: Int!) {
   }
 }
 `;
-export interface FavoriteStoriesParams {
-  page: number;
-}
 export interface FavoriteStoriesResult {
   stories: Query["favoriteStories"];
 }
 
 export const STORIES_BY_CATEGORY = gql`
-query WebStoriesByCategory($categoryId: Int!, $page: Int!) {
+query Web_StoriesByCategory($categoryId: Int!, $page: Int!) {
   stories: storiesByCategory(categoryId: $categoryId, page: $page) {
     pageCount
     stories {
@@ -50,16 +50,29 @@ query WebStoriesByCategory($categoryId: Int!, $page: Int!) {
   }
 }
 `;
-export interface StoriesByCategoryParams {
-  categoryId: number;
-  page: number;
-}
 export interface StoriesByCategoryResult {
   stories: Query["storiesByCategory"];
 }
 
+export const STORIES_BY_SERIES = gql`
+query Web_StoriesBySeries($seriesId: Int!, $page: Int!) {
+  stories: storiesBySeries(seriesId: $seriesId, page: $page) {
+    pageCount
+    stories {
+      id
+      categoryId
+      title
+      description
+    }
+  }
+}
+`;
+export interface StorySeriesResult {
+  stories: Query["storiesBySeries"];
+}
+
 export const STORY_CATEGORIES = gql`
-query WebStoryCategories {
+query Web_StoryCategories {
   categories: storyCategories {
     id
     name
@@ -72,7 +85,7 @@ export interface StoryCategoriesResult {
 }
 
 export const TOGGLE_STORY_FAVORITE = gql`
-mutation WebToggleStoryFavorite($id: Int!) {
+mutation Web_ToggleStoryFavorite($id: Int!) {
   toggleStoryFavorite(id: $id)
 }
 `;

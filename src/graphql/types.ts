@@ -124,8 +124,8 @@ export type Query = {
   listMedia: Array<MediaItem>,
   roles: Array<Maybe<Role>>,
   story: Story,
-  storySeries: Array<Story>,
   storiesByCategory: StoriesResult,
+  storiesBySeries: StoriesResult,
   favoriteStories: StoriesResult,
   storyCategories: Array<StoryCategory>,
   user?: Maybe<User>,
@@ -146,13 +146,14 @@ export type QueryStoryArgs = {
 };
 
 
-export type QueryStorySeriesArgs = {
-  id: Scalars['Int']
+export type QueryStoriesByCategoryArgs = {
+  categoryId: Scalars['Int'],
+  page?: Maybe<Scalars['Int']>
 };
 
 
-export type QueryStoriesByCategoryArgs = {
-  categoryId: Scalars['Int'],
+export type QueryStoriesBySeriesArgs = {
+  seriesId: Scalars['Int'],
   page?: Maybe<Scalars['Int']>
 };
 

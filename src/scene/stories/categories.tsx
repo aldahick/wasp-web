@@ -6,6 +6,7 @@ import { PagedView } from "../../component/stories/PagedView";
 import { StoryListLink } from "../../component/stories/StoryListLink";
 import { STORY_CATEGORIES, StoryCategoriesResult } from "../../graphql/stories";
 import { StoryCategory } from "../../graphql/types";
+import { checkQueryResult } from "../../util/graphql";
 
 export class StoryCategoriesScene extends React.Component<{}> {
   private renderPage(categories: StoryCategory[]): ReactNode {
@@ -24,22 +25,12 @@ export class StoryCategoriesScene extends React.Component<{}> {
   render() {
     return (
       <Query<StoryCategoriesResult> query={STORY_CATEGORIES}>
-        {({ loading, data, error }) => {
-          if (loading) { return <Typography>Loading...</Typography>; }
-          if (error || !data) {
-            return (
-              <Typography color="error">
-                {error ? error.message : "No data available."}
-              </Typography>
-            );
-          }
-          return (
-            <PagedView
-              pages={_.chunk(data.categories, 10)}
-              renderPage={this.renderPage}
-            />
-          );
-        }}
+        {checkQueryResult<StoryCategoriesResult>(({ categories }) => (
+          <PagedView
+            pages={_.chunk(categories, 10)}
+            renderPage={this.renderPage}
+          />
+        ))}
       </Query>
     );
   }

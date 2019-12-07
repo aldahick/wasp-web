@@ -2,18 +2,15 @@ import React from "react";
 import { RouteComponentProps } from "react-router";
 import { StoryList } from "../../component/stories/StoryList";
 import { STORIES_BY_CATEGORY } from "../../graphql/stories";
+import { QueryStoriesByCategoryArgs } from "../../graphql/types";
 
-type StoryCategoryProps = RouteComponentProps<{
+type StoryCategorySceneProps = RouteComponentProps<{
   categoryId: string;
 }>;
 
-export class StoryCategoryScene extends React.Component<StoryCategoryProps> {
-  private get categoryId() {
-    return Number(this.props.match.params.categoryId);
-  }
-
-  render() {
-    sessionStorage.setItem("lastStoryCategoryId", this.categoryId.toString());
-    return <StoryList query={STORIES_BY_CATEGORY} args={{ categoryId: this.categoryId }} />;
-  }
-}
+export const StoryCategoryScene: React.FC<StoryCategorySceneProps> = ({ match: { params: { categoryId } } }) => (
+  <StoryList<QueryStoriesByCategoryArgs>
+    query={STORIES_BY_CATEGORY}
+    args={{ categoryId: Number(categoryId) }}
+  />
+);

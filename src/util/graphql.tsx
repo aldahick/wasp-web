@@ -19,11 +19,11 @@ export const callMutationSafe = async <D, V>(mutation: MutationFunction<D, V>, v
 export const checkQueryResult = <Data,>(callback: (data: Data) => JSX.Element | null): QueryComponentOptions["children"] =>
   ({ loading, data, error }: QueryResult<Data>) => {
     if (loading) {
-      return <Typography>Loading...</Typography>;
+      return <Typography style={{ textAlign: "center" }}>Loading...</Typography>;
     }
     if (error || !data) {
       return (
-        <Typography color="error">
+        <Typography color="error" style={{ textAlign: "center" }}>
           {error ? error.message : "No data available."}
         </Typography>
       );

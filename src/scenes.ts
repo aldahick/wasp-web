@@ -10,6 +10,7 @@ import { StoryFavoritesScene } from "./scene/stories/favorites";
 import { StoryScene } from "./scene/stories/story";
 import { WestWingEpisodeScene } from "./scene/westWing/episode";
 import { WestWingEpisodesScene } from "./scene/westWing/episodes";
+import { StorySeriesScene } from "./scene/stories/series";
 
 interface SceneDefinition {
   component: React.ComponentType<any>;
@@ -52,6 +53,11 @@ const scenes: SceneDefinition[] = [
   {
     component: StoryCategoryScene,
     route: "/stories/category/:categoryId",
+    isPrivate: true
+  },
+  {
+    component: StorySeriesScene,
+    route: "/stories/series/:seriesId",
     isPrivate: true
   },
   {

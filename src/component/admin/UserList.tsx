@@ -1,8 +1,9 @@
-import { Grid, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@material-ui/core";
+import { Grid, Table, TableBody, TableCell, TableHead, TableRow } from "@material-ui/core";
 import React, { ReactNode } from "react";
 import { Query } from "react-apollo";
 import { GET_USERS, GetUsersResult } from "../../graphql/admin/users";
 import { QueryUsersArgs } from "../../graphql/types";
+import { checkQueryResult } from "../../util/graphql";
 
 export interface UserListProps {
   children: ReactNode;
@@ -27,34 +28,30 @@ export class UserList extends React.Component<UserListProps, UserListState> {
         </Grid>
         <Grid item>
           <Query<GetUsersResult, QueryUsersArgs> query={GET_USERS} variables={this.state}>
-            {({ loading, data, error }) => {
-              if (loading) { return <Typography>Loading...</Typography>; }
-              if (error || !data) { return <Typography color="error">Error occurred: {error ? error.message : "no data"}</Typography>; }
-              return (
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Email</TableCell>
-                      <TableCell>Date Created</TableCell>
-                      <TableCell>Roles</TableCell>
+            {checkQueryResult<GetUsersResult>(({ users }) => (
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Email</TableCell>
+                    <TableCell>Date Created</TableCell>
+                    <TableCell>Roles</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {users.map(user => (
+                    <TableRow key={user._id}>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>{new Date(user.createdAt).toLocaleString()}</TableCell>
+                      <TableCell>
+                        {user.roles.length > 0 ? user.roles.map(r =>
+                          <a key={r._id} href={`/admin/roles/${r._id}`}>{r.name}</a>
+                        ) : "None"}
+                      </TableCell>
                     </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {data.users.map(user => (
-                      <TableRow key={user._id}>
-                        <TableCell>{user.email}</TableCell>
-                        <TableCell>{new Date(user.createdAt).toLocaleString()}</TableCell>
-                        <TableCell>
-                          {user.roles.length > 0 ? user.roles.map(r =>
-                            <a key={r._id} href={`/admin/roles/${r._id}`}>{r.name}</a>
-                          ) : "None"}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              );
-            }}
+                  ))}
+                </TableBody>
+              </Table>
+            ))}
           </Query>
         </Grid>
       </Grid>

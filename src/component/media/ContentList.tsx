@@ -3,6 +3,7 @@ import React from "react";
 import { Query } from "react-apollo";
 import { LIST_MEDIA, ListMediaResult } from "../../graphql/media";
 import { MediaItemType, QueryListMediaArgs } from "../../graphql/types";
+import { checkQueryResult } from "../../util/graphql";
 import { ContentSeries } from "./ContentSeries";
 import { ContentView } from "./ContentView";
 
@@ -59,26 +60,17 @@ export class ContentList extends React.Component<{}, ContentListState> {
     }
     return (
       <Query<ListMediaResult, QueryListMediaArgs> query={LIST_MEDIA} variables={{ dir: this.selectedKey }}>
-        {({ data, loading, error }) => {
-          if (loading) { return <Typography>Loading...</Typography>; }
-          if (error || !data) {
-            return (
-              <Typography color="error">
-                {error ? error.message : "No data available."}
-              </Typography>
-            );
-          }
+        {checkQueryResult<ListMediaResult>(({ listMedia }) => {
           this.state.rows.push({
-            options: data.listMedia,
-            selected: (data.listMedia[0] || {}).key
+            options: listMedia,
+            selected: (listMedia[0] || {}).key
           });
           return (
             <Grid container>
-              {}
               {this.renderSelect()}
             </Grid>
           );
-        }}
+        })}
       </Query>
     );
   }

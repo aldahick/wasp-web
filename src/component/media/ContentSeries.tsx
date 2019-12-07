@@ -4,6 +4,7 @@ import React, { Fragment } from "react";
 import { Query } from "react-apollo";
 import { LIST_MEDIA, ListMediaResult } from "../../graphql/media";
 import { MediaItemType, QueryListMediaArgs } from "../../graphql/types";
+import { checkQueryResult } from "../../util/graphql";
 import { ContentView } from "./ContentView";
 
 export interface ContentSeriesProps {
@@ -30,16 +31,8 @@ export class ContentSeries extends React.Component<ContentSeriesProps> {
     const { dir } = this.props;
     return (
       <Query<ListMediaResult, QueryListMediaArgs> query={LIST_MEDIA} variables={{ dir }}>
-        {({ data, loading, error }) => {
-          if (loading) { return <Typography>Loading...</Typography>; }
-          if (error || !data) {
-            return (
-              <Typography color="error">
-                {error ? error.message : "No data available."}
-              </Typography>
-            );
-          }
-          let keys = data.listMedia
+        {checkQueryResult<ListMediaResult>(({ listMedia }) => {
+          let keys = listMedia
             .filter(i => i.type === MediaItemType.File)
             .map(i => i.key);
           keys = _.sortBy(keys, k => Number(k.split("/").slice(-1)[0].split(".")[0]));
@@ -64,7 +57,7 @@ export class ContentSeries extends React.Component<ContentSeriesProps> {
               <ContentView onClick={() => this.addToSelectedIndex(1, keys.length - 1)} targetKey={selectedKey} />
             </Fragment>
           );
-        }}
+        })}
       </Query>
     );
   }
